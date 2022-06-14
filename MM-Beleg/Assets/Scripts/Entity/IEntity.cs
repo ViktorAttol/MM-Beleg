@@ -6,7 +6,8 @@ public interface IEntity
 {
     public GameObject GetDeathEffect();
     public float GetHealth();
-    public int GetDimension();
+    public EntityDimension GetDimension();
+    public void SetDimenion(EntityDimension dimension);
     public float GetMoveSpeed();
     public bool IsDead()
     {
