@@ -21,25 +21,28 @@ public class PlayerMovement : MonoBehaviour
         mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
     }
 
-    void FixedUpdate()
+    public void Move(float speed)
     {
-  /*      if (this.GetComponent<PlayerHealth>().IsDead())
-        {
-            rb.drag = 999999;
-            return;
-        }
-*/
+        /*      if (this.GetComponent<PlayerHealth>().IsDead())
+              {
+                  rb.drag = 999999;
+                  return;
+              }
+      */
+
+        float tempSpeed = moveSpeed * speed;
+
         if (Input.GetAxisRaw("Horizontal") > 0.01f)
         {
             Vector2 dir;
-            dir.x = moveSpeed;
+            dir.x = tempSpeed;
             dir.y = 0;
             rb.AddForce(dir);
         }
         if (Input.GetAxisRaw("Horizontal") < -0.01f)
         {
             Vector2 dir;
-            dir.x = -moveSpeed;
+            dir.x = -tempSpeed;
             dir.y = 0;
             rb.AddForce(dir);
         }
@@ -47,14 +50,14 @@ public class PlayerMovement : MonoBehaviour
         {
             Vector2 dir;
             dir.x = 0;
-            dir.y = moveSpeed;
+            dir.y = tempSpeed;
             rb.AddForce(dir);
         }
         if (Input.GetAxisRaw("Vertical") < -0.01f)
         {
             Vector2 dir;
             dir.x = 0;
-            dir.y = -moveSpeed;
+            dir.y = -tempSpeed;
             rb.AddForce(dir);
         }
 

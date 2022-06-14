@@ -8,10 +8,10 @@ public class Enemy : MonoBehaviour, IEntity
     private float moveSpeed = 10;
     private float rotationSpeed = 180;
     public Rigidbody2D rb;
+    private EntityDimension dimension;
 
     void Start()
     {
-
     }
 
     // Update is called once per frame
@@ -24,9 +24,9 @@ public class Enemy : MonoBehaviour, IEntity
         throw new System.NotImplementedException();
     }
 
-    public int GetDimension()
+    public EntityDimension GetDimension()
     {
-        throw new System.NotImplementedException();
+        return dimension;
     }
 
     public float GetHealth()
@@ -73,4 +73,8 @@ public class Enemy : MonoBehaviour, IEntity
         return repelForce;
     }
 
+    public void SetDimenion(EntityDimension dimension)
+    {
+        this.dimension = dimension;
+    }
 }

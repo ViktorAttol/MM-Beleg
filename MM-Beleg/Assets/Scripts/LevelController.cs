@@ -5,18 +5,26 @@ using UnityEngine.SceneManagement;
 
 public class LevelController : MonoBehaviour
 {
-    private string[] dimensions = { "blue", "red" };
     // public EnemySpawnManager enemySpawnManager;
     public LinkedList<IEntity>[] entities;
+    public static LevelController instance;
 
     private void OnEnable()
     {
         InitDimensions();
     }
 
+    private void Awake()
+    {
+        if (instance != null) {
+            Destroy(instance);
+        }
+        instance = this;
+    }
+
     void Start()
     {
-  
+        
     }
 
     void Update()
@@ -34,24 +42,23 @@ public class LevelController : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
-    public void AddEntityToList(IEntity _entity, int dimension)
+    public void AddEntityToList(IEntity _entity, EntityDimension dimension)
     {
-        if (dimension < 0 || dimension >= entities.Length)
+        if (_entity == null)
         {
             return;
         }
 
-        entities[dimension].AddLast(_entity);
+        entities[(int) dimension].AddLast(_entity);
     }
 
-    public string[] GetDimensions()
+    public void RemoveEntityFromList(IEntity _entity)
     {
-        return dimensions;
+        entities[(int)_entity.GetDimension()].Remove(_entity);
     }
-
     private void InitDimensions()
     {
-        entities = new LinkedList<IEntity>[dimensions.Length];
+        entities = new LinkedList<IEntity>[System.Enum.GetValues(typeof(EntityDimension)).Length];
         for (int i = 0; i < entities.Length; i++)
         {
             entities[i] = new LinkedList<IEntity>();

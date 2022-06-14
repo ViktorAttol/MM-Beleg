@@ -17,7 +17,7 @@ public class EnemySpawnManager : MonoBehaviour
     }
     private void SpawnWave()
     {
-        for (int i = 0; i < controller.GetDimensions().Length; i++)
+        foreach (EntityDimension dimension in System.Enum.GetValues(typeof(EntityDimension)))
         {
             for (int j = 0; j < spawnCount; j++)
             {
@@ -25,9 +25,10 @@ public class EnemySpawnManager : MonoBehaviour
                 spawnPos += Random.insideUnitCircle.normalized * 20;
 
                 GameObject toSpawn = GameObject.Instantiate(enemy1, spawnPos, Quaternion.identity);
-                controller.AddEntityToList(toSpawn.GetComponent<IEntity>(), i);
+                controller.AddEntityToList(toSpawn.GetComponent<IEntity>(), dimension);
                 toSpawn.transform.SetParent(this.transform);
                 toSpawn.GetComponent<Enemy>().SetTarget(player.transform);
+                toSpawn.GetComponent<Enemy>().SetDimenion(dimension);
             }
         }
     }
