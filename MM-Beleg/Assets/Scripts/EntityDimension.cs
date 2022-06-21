@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum EntityDimension
-
 {
     RED, GREEN, BLUE, PLAYER
 }

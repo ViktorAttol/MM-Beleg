@@ -6,7 +6,6 @@ public class PlayerAttack : MonoBehaviour
 {
     public GameObject bulletPrefab;
     public GameObject firePoint;
-    public Player player;
 
     void Start()
     {
@@ -28,8 +27,9 @@ public class PlayerAttack : MonoBehaviour
             bullet.transform.rotation = Quaternion.identity;
             bullet.GetComponent<Rigidbody2D>().AddForce(firePoint.transform.up * 30, ForceMode2D.Impulse);
             Bullet activeBullet = bullet.GetComponent<Bullet>();
-            activeBullet.SetDimenion(player.GetDimension());
-            LevelController.instance.AddEntityToList(activeBullet, activeBullet.GetDimension());
+            activeBullet.SetDimenion(DimensionController.Instance.GetCurrentDimension());
+            activeBullet.SetTargetDimension(DimensionController.Instance.GetCurrentDimension());
+            LevelController.Instance.AddEntityToList(activeBullet, activeBullet.GetDimension());
         }
     }
 }

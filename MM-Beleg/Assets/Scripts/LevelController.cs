@@ -7,7 +7,9 @@ public class LevelController : MonoBehaviour
 {
     // public EnemySpawnManager enemySpawnManager;
     public LinkedList<IEntity>[] entities;
-    public static LevelController instance;
+    public static LevelController Instance;
+    private float moveValueCurrentDimension = 1f;
+    private float moveValueNotCurrentDimension = 0.5f;
 
     private void OnEnable()
     {
@@ -16,10 +18,10 @@ public class LevelController : MonoBehaviour
 
     private void Awake()
     {
-        if (instance != null) {
-            Destroy(instance);
+        if (Instance != null) {
+            Destroy(Instance);
         }
-        instance = this;
+        Instance = this;
     }
 
     void Start()
@@ -67,11 +69,14 @@ public class LevelController : MonoBehaviour
 
     private void MoveEntities()
     {
-        foreach (LinkedList<IEntity> list in entities)
+        EntityDimension currDimension = DimensionController.Instance.GetCurrentDimension();
+        for (int i = 0; i < entities.Length; i++)
         {
-            foreach(IEntity entity in list)
+            float moveValue = moveValueNotCurrentDimension;
+            if ((int) currDimension == i || i == 3) moveValue = moveValueCurrentDimension;
+            foreach(IEntity entity in entities[i])
             {
-                entity.Move(1f);
+                entity.Move(moveValue);
             }
         }
     }

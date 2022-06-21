@@ -19,6 +19,7 @@ public class EnemySpawnManager : MonoBehaviour
     {
         foreach (EntityDimension dimension in System.Enum.GetValues(typeof(EntityDimension)))
         {
+            if(dimension == EntityDimension.PLAYER) continue;
             for (int j = 0; j < spawnCount; j++)
             {
                 Vector2 spawnPos = player.GetComponent<Transform>().position;
@@ -29,6 +30,7 @@ public class EnemySpawnManager : MonoBehaviour
                 toSpawn.transform.SetParent(this.transform);
                 toSpawn.GetComponent<Enemy>().SetTarget(player.transform);
                 toSpawn.GetComponent<Enemy>().SetDimenion(dimension);
+                toSpawn.GetComponent<SpriteRenderer>().color = DimensionColors.dimensionColors[(int) dimension];
             }
         }
     }

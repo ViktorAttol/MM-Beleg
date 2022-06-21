@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour, IEntity
 {
-    public EntityDimension activeDimension = EntityDimension.RED;
+    private EntityDimension playerDimension = EntityDimension.PLAYER;
     public PlayerMovement playerMovement;
 
     public GameObject GetDeathEffect()
@@ -14,7 +14,7 @@ public class Player : MonoBehaviour, IEntity
 
     public EntityDimension GetDimension()
     {
-        return activeDimension;
+        return playerDimension;
     }
 
     public float GetHealth()
@@ -34,7 +34,7 @@ public class Player : MonoBehaviour, IEntity
 
     public void SetDimenion(EntityDimension dimension)
     {
-       activeDimension = dimension;
+       //activeDimension = dimension;
     }
 
     public void SetTarget(Transform _target)
@@ -45,7 +45,7 @@ public class Player : MonoBehaviour, IEntity
     // Start is called before the first frame update
     void Start()
     {
-        LevelController.instance.AddEntityToList(this, EntityDimension.PLAYER);
+        LevelController.Instance.AddEntityToList(this, EntityDimension.PLAYER);
     }
 
     // Update is called once per frame
