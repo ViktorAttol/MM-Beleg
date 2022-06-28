@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour, IEntity
@@ -10,9 +11,11 @@ public class Enemy : MonoBehaviour, IEntity
     private float rotationSpeed = 180;
     public Rigidbody2D rb;
     private EntityDimension dimension;
-
+    private int health = 3;
+    private EnemyAttack enemyAttack;
     void Start()
     {
+        enemyAttack = GetComponent<EnemyAttack>();
     }
 
     // Update is called once per frame
@@ -38,7 +41,7 @@ public class Enemy : MonoBehaviour, IEntity
 
     public float GetHealth()
     {
-        throw new System.NotImplementedException();
+        return health;
     }
 
     public float GetMoveSpeed()
@@ -60,11 +63,21 @@ public class Enemy : MonoBehaviour, IEntity
         // Ich habe mir die Rechenleistung im Profiler angeguckt und der war minimal (0.10ms)
         newPos += RepelForce() * Time.fixedDeltaTime;
         rb.MovePosition(newPos);
+        enemyAttack.Shoot(_scale);
     }
 
     public void SetTarget(Transform _target)
     {
         this.target = _target;
+    }
+
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+        if (health <= 0)
+        {
+            Destroy(this.GameObject());
+        }
     }
 
     private Vector2 RepelForce()

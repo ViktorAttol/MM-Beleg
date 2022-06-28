@@ -16,4 +16,6 @@ public interface IEntity
     public void Move(float _speed);
     public void SetTarget(Transform _target);
 
+    public void TakeDamage(int damage);
+
 }

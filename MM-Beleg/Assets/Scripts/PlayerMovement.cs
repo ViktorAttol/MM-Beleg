@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private float moveSpeed = 16f;
+    private float moveSpeed = 600f;
 
     public Rigidbody2D rb;
     public Camera cam;
@@ -30,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
               }
       */
 
-        float tempSpeed = moveSpeed * speed;
+        float tempSpeed = moveSpeed * speed * Time.fixedDeltaTime;
 
         if (Input.GetAxisRaw("Horizontal") > 0.01f)
         {
