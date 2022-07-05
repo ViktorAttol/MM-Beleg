@@ -7,7 +7,7 @@ public class Player : MonoBehaviour, IEntity
 {
     private EntityDimension playerDimension = EntityDimension.PLAYER;
     public PlayerMovement playerMovement;
-    public int health = 3;
+    private int health = 3;
     
     public GameObject GetDeathEffect()
     {
@@ -29,9 +29,9 @@ public class Player : MonoBehaviour, IEntity
         throw new System.NotImplementedException();
     }
 
-    public void Move(float _speed)
+    public void Move(float scale)
     {
-        playerMovement.Move(_speed);
+        playerMovement.Move(scale);
     }
 
     public void SetDimenion(EntityDimension dimension)
@@ -61,7 +61,8 @@ public class Player : MonoBehaviour, IEntity
         health -= damage;
         if (health <= 0)
         {
-            Destroy(this.GameObject());
+            LevelController.Instance.SetLevelActive(false); 
+            //Destroy(this.GameObject());
             //here game over
         }
     }

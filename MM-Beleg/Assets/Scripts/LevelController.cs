@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,13 +9,16 @@ public class LevelController : MonoBehaviour
 {
     // public EnemySpawnManager enemySpawnManager;
     public LinkedList<IEntity>[] entities;
+    public LinkedList<IEntity> bufferDimensionList;
     public static LevelController Instance;
     private float moveValueCurrentDimension = 1f;
     private float moveValueNotCurrentDimension = 0.5f;
-
+    private bool levelActive = true;
+    
     private void OnEnable()
     {
         InitDimensions();
+        bufferDimensionList = new LinkedList<IEntity>();
     }
 
     private void Awake()
@@ -34,9 +39,14 @@ public class LevelController : MonoBehaviour
         
     }
 
+    public void SetLevelActive(bool active)
+    {
+        levelActive = active;
+    }
+
     private void FixedUpdate()
     {
-        MoveEntities();
+        if(levelActive) MoveEntities();
     }
 
     public void ReturnToMenuClicked()
@@ -74,10 +84,13 @@ public class LevelController : MonoBehaviour
         {
             float moveValue = moveValueNotCurrentDimension;
             if ((int) currDimension == i || i == 3) moveValue = moveValueCurrentDimension;
-            foreach(IEntity entity in entities[i])
+            moveValue *= Time.fixedDeltaTime;
+            bufferDimensionList.AddRange(entities[i]);
+            foreach(IEntity entity in bufferDimensionList)
             {
-                entity.Move(moveValue);
+                entity.Move(moveValue );
             }
+            bufferDimensionList.Clear();
         }
     }
 }

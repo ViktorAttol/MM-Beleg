@@ -22,7 +22,7 @@ public class PlayerAttack : MonoBehaviour
         if(Input.GetMouseButtonDown(0))
         {
             GameObject bullet = GameObject.Instantiate(bulletPrefab);
-            bullet.transform.parent = transform;
+            //bullet.transform.parent = transform;
             bullet.transform.position = firePoint.transform.position;
             bullet.transform.rotation = firePoint.transform.rotation;
             //bullet.GetComponent<Rigidbody2D>().AddForce(firePoint.transform.up * 30, ForceMode2D.Impulse);

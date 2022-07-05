@@ -13,7 +13,7 @@ public interface IEntity
     {
         return GetHealth() <= 0;
     }
-    public void Move(float _speed);
+    public void Move(float scale);
     public void SetTarget(Transform _target);
 
     public void TakeDamage(int damage);

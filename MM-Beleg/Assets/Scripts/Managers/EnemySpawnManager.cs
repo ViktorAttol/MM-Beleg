@@ -28,11 +28,11 @@ public class EnemySpawnManager : MonoBehaviour
                 GameObject toSpawn = GameObject.Instantiate(enemy1, spawnPos, Quaternion.identity);
                 controller.AddEntityToList(toSpawn.GetComponent<IEntity>(), dimension);
                 toSpawn.transform.SetParent(this.transform);
-                toSpawn.GetComponent<Enemy>().SetTarget(player.transform);
-                toSpawn.GetComponent<Enemy>().SetDimenion(dimension);
-                toSpawn.GetComponent<SpriteRenderer>().color = DimensionColors.dimensionColors[(int) dimension];
+                Enemy enemy = toSpawn.GetComponent<Enemy>();
+                enemy.SetTarget(player.transform);
+                enemy.SetDimenion(dimension);
+                enemy.sprite.GetComponent<SpriteRenderer>().color = DimensionColors.dimensionColors[(int) dimension];
             }
         }
     }
-
 }

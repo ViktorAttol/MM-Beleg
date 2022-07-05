@@ -8,14 +8,23 @@ public class Enemy : MonoBehaviour, IEntity
 {
     private Transform target;
     private float moveSpeed = 10;
-    private float rotationSpeed = 180;
+    
     public Rigidbody2D rb;
     private EntityDimension dimension;
     private int health = 3;
     private EnemyAttack enemyAttack;
-    void Start()
+    public GameObject sprite;
+    public RotateSprite rotateSprite;
+    
+    void OnEnable()
     {
         enemyAttack = GetComponent<EnemyAttack>();
+        rotateSprite = sprite.GetComponent<RotateSprite>();
+
+    }
+
+    void Start()
+    {
     }
 
     // Update is called once per frame
@@ -49,21 +58,21 @@ public class Enemy : MonoBehaviour, IEntity
         return moveSpeed;
     }
 
-    public void Move(float _scale)
+    public void Move(float scale)
     {
-        transform.Rotate(0, 0, -rotationSpeed * _scale * Time.deltaTime);
-
+        //transform.Rotate(0, 0, -rotationSpeed * _scale * Time.deltaTime);
+        rotateSprite.Rotate(scale);
         Vector2 direction = this.target.position - this.transform.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         rb.rotation = angle;
         direction.Normalize();
 
-        Vector2 newPos = (Vector2)transform.position + (direction * GetMoveSpeed() * _scale * Time.fixedDeltaTime);
+        Vector2 newPos = (Vector2)transform.position + (direction * GetMoveSpeed() * scale);
 
         // Ich habe mir die Rechenleistung im Profiler angeguckt und der war minimal (0.10ms)
-        newPos += RepelForce() * Time.fixedDeltaTime;
+        newPos += RepelForce() * scale;
         rb.MovePosition(newPos);
-        enemyAttack.Shoot(_scale);
+        enemyAttack.Shoot(scale);
     }
 
     public void SetTarget(Transform _target)

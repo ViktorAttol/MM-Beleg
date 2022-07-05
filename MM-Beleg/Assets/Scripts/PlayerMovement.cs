@@ -30,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
               }
       */
 
-        float tempSpeed = moveSpeed * speed * Time.fixedDeltaTime;
+        float tempSpeed = moveSpeed * speed;
 
         if (Input.GetAxisRaw("Horizontal") > 0.01f)
         {

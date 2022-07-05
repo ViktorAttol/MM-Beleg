@@ -50,12 +50,12 @@ public class Bullet : MonoBehaviour, IEntity
         throw new System.NotImplementedException();
     }
 
-    public void Move(float _speed)
+    public void Move(float scale)
     {
         //transform.position += transform.right * _speed * bulletSpeed * Time.deltaTime;
         //thisBody.AddForce(transform.up * _speed * bulletSpeed, ForceMode2D.Impulse);
-        thisBody.velocity = ((transform.right).normalized) * _speed * bulletSpeed * Time.fixedDeltaTime ;
-        lifeDistance -= _speed;
+        thisBody.velocity = ((transform.right).normalized) * scale * bulletSpeed  ;
+        lifeDistance -= scale;
         if(lifeDistance <= 0) Destroy(this.GameObject());
     }
 
