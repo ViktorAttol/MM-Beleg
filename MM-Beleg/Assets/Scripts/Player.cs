@@ -7,7 +7,7 @@ public class Player : MonoBehaviour, IEntity
 {
     private EntityDimension playerDimension = EntityDimension.PLAYER;
     public PlayerMovement playerMovement;
-    private int health = 3;
+    private int health = 20;
     
     public GameObject GetDeathEffect()
     {

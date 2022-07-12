@@ -14,6 +14,7 @@ public class LevelController : MonoBehaviour
     private float moveValueCurrentDimension = 1f;
     private float moveValueNotCurrentDimension = 0.5f;
     private bool levelActive = true;
+    private EnemySpawnManager enemySpawnManager;
     
     private void OnEnable()
     {
@@ -39,6 +40,11 @@ public class LevelController : MonoBehaviour
         
     }
 
+    public void SetEnemySpawnManager(EnemySpawnManager spawnManager)
+    {
+        enemySpawnManager = spawnManager;
+    }
+
     public void SetLevelActive(bool active)
     {
         levelActive = active;
@@ -46,7 +52,7 @@ public class LevelController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(levelActive) MoveEntities();
+        if(levelActive) GameTick();
     }
 
     public void ReturnToMenuClicked()
@@ -77,7 +83,7 @@ public class LevelController : MonoBehaviour
         }
     }
 
-    private void MoveEntities()
+    private void GameTick()
     {
         EntityDimension currDimension = DimensionController.Instance.GetCurrentDimension();
         for (int i = 0; i < entities.Length; i++)
@@ -92,5 +98,6 @@ public class LevelController : MonoBehaviour
             }
             bufferDimensionList.Clear();
         }
+        enemySpawnManager.SpawnTick(Time.fixedDeltaTime);
     }
 }
