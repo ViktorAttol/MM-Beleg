@@ -152,9 +152,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d14c0d84eb4936418bc12f5b48249ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 998221636}
+  levelController: {fileID: 998221636}
   enemy1: {fileID: 3429196004444621515, guid: c31e5984d579405409e9826bc5e68c10, type: 3}
-  spawnCount: 3
 --- !u!4 &215407357
 Transform:
   m_ObjectHideFlags: 0

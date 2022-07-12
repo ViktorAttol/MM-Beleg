@@ -7,7 +7,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour, IEntity
 {
     private Transform target;
-    private float moveSpeed = 10;
+    private float moveSpeed = 7;
     
     public Rigidbody2D rb;
     private EntityDimension dimension;

@@ -11,12 +11,14 @@ public class EnemySpawnManager : MonoBehaviour
     private float spawnFrequency = 3f;
     private float spawnTimeCounter = 0f;
     private float timePassed = 0f;
-
+    private List<EntityDimension> enemyDimensions = new List<EntityDimension>();
+    
+    
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         levelController.SetEnemySpawnManager(this);
-        SpawnWave();
+        SetDimensions();
     }
 
     public void SpawnTick(float tickTime)
@@ -25,15 +27,39 @@ public class EnemySpawnManager : MonoBehaviour
         timePassed += tickTime;
         if (spawnTimeCounter >= spawnFrequency)
         {
-            SpawnEnemy(1f);
+            SpawnEnemy(timePassed);
+            spawnTimeCounter = 0f;
         }
     }
 
-    
+    private void SetDimensions()
+    {
+        foreach (EntityDimension dimension in System.Enum.GetValues(typeof(EntityDimension)))
+        {
+            if (dimension == EntityDimension.PLAYER) continue;
+            enemyDimensions.Add(dimension);
+        }
+    }
     
     private void SpawnEnemy(float probability)
     {
+        int count = 1 + (int) (Mathf.Sqrt(probability)/2);
+
+        EntityDimension spawnDimension = enemyDimensions[Random.Range(0, enemyDimensions.Count)];
         
+        for (int j = 0; j < count; j++)
+        {
+            Vector2 spawnPos = player.GetComponent<Transform>().position;
+            spawnPos += Random.insideUnitCircle.normalized * 22;
+
+            GameObject toSpawn = GameObject.Instantiate(enemy1, spawnPos, Quaternion.identity);
+            levelController.AddEntityToList(toSpawn.GetComponent<IEntity>(), spawnDimension);
+            toSpawn.transform.SetParent(this.transform);
+            Enemy enemy = toSpawn.GetComponent<Enemy>();
+            enemy.SetTarget(player.transform);
+            enemy.SetDimenion(spawnDimension);
+            enemy.sprite.GetComponent<SpriteRenderer>().color = DimensionColors.dimensionColors[(int) spawnDimension];
+        }
     }
     
     
