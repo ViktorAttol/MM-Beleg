@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public static class LevelDataHandler
@@ -10,7 +11,17 @@ public static class LevelDataHandler
     public static List<string> unlockedWeapons;
     public static int lifePoints;
     
-    public static int currentPlayerPoints = 0;
+    private static int currentPlayerPoints = 0;
+
+    public static void SetPlayerPoints(int addPoints)
+    {
+        currentPlayerPoints += addPoints;
+    }
+
+    public static int GetCurrentPlayerPoints()
+    {
+        return currentPlayerPoints;
+    }
     
     public static bool shotgun = false;
     public static bool minigun = false;
