@@ -20,6 +20,7 @@ public class RipplePostProcessor : MonoBehaviour
 
     public void RippleEffect(float x, float y, float strength)
     {
+        if (RippleMaterial == null) return;
         this.Amount = this.MaxAmount * strength;
         this.RippleMaterial.SetFloat("_CenterX", x);
         this.RippleMaterial.SetFloat("_CenterY", y);

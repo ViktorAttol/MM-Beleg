@@ -5,11 +5,16 @@ using TMPro;
 
 public class ShopMoney : MonoBehaviour
 {
-    public TextMeshProUGUI money;
+    private TextMeshProUGUI money;
 
+    void Start()
+    {
+        money = GetComponent<TextMeshProUGUI>();
+    }
+    
     // Update is called once per frame
     void Update()
     {
-        money.text = "$ " + LevelDataHandler.currentPlayerPoints;
+        money.text = "$ " + LevelDataHandler.GetCurrentPlayerPoints();
     }
 }

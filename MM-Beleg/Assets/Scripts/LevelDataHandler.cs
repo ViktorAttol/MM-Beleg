@@ -11,20 +11,31 @@ public static class LevelDataHandler
     public static List<string> unlockedWeapons;
     public static int lifePoints;
     
-    private static int currentPlayerPoints = 0;
+    private static int currentPlayerPoints = 1000;
 
-    public static void SetPlayerPoints(int addPoints)
+    public static void AddPlayerPoints(int addPoints)
     {
         currentPlayerPoints += addPoints;
     }
+
+    public static bool SubtractPlayerPoints(int subtractPoints)
+    {
+        if (currentPlayerPoints < subtractPoints) return false;
+        currentPlayerPoints -= subtractPoints;
+        return true;
+    } 
 
     public static int GetCurrentPlayerPoints()
     {
         return currentPlayerPoints;
     }
     
-    public static bool shotgun = false;
-    public static bool minigun = false;
+    public static bool unlockedShotgun = false;
+    public static bool unlockedMinigun = false;
+
+    public static int additionalLife = 0;
+
+    public static int additionalSpeed = 0;
     //public static 
 }
 

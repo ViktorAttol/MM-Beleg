@@ -26,7 +26,7 @@ public class LevelController : MonoBehaviour
     public void AddPoints(int points)
     {
         this.points += points;
-        LevelDataHandler.currentPlayerPoints += points;
+        //LevelDataHandler.currentPlayerPoints += points;
     }
     
     private void OnEnable()
@@ -53,6 +53,13 @@ public class LevelController : MonoBehaviour
         
     }
 
+    public void OnGameOver()
+    {
+        levelActive = false;
+        LevelDataHandler.AddPlayerPoints(points);
+        ReturnToMenu();
+    }
+    
     public void SetEnemySpawnManager(EnemySpawnManager spawnManager)
     {
         enemySpawnManager = spawnManager;
@@ -68,7 +75,7 @@ public class LevelController : MonoBehaviour
         if(levelActive) GameTick();
     }
 
-    public void ReturnToMenuClicked()
+    public void ReturnToMenu()
     {
         SceneManager.LoadScene("MainMenu");
     }

@@ -35,10 +35,16 @@ public class MainMenuStateMachine : MonoBehaviour
                 SetView(ShopView);
                 break;
             case MenuState.EXIT:
+                OnCaseExit();
                 break;
         }
     }
 
+    private void OnCaseExit()
+    {
+        Application.Quit();
+    }
+    
     private void SetView(GameObject view)
     {
         _activeView.SetActive(false);
@@ -48,20 +54,20 @@ public class MainMenuStateMachine : MonoBehaviour
 
     public void PlayBtnClicked()
     {
-        Debug.Log("play");
+        //Debug.Log("play");
         SceneManager.LoadScene("Level", LoadSceneMode.Single);
     }
 
     public void ShopBtnClicked()
     {
-        Debug.Log("shop");
+        //Debug.Log("shop");
         _menuState = MenuState.SHOP;
         SetMenuView();
     }
 
     public void ExitBtnClicked()
     {
-        Debug.Log("exit");
+        //Debug.Log("exit");
         _menuState = MenuState.EXIT;
         SetMenuView();
     }

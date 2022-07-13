@@ -47,6 +47,7 @@ public class Player : MonoBehaviour, IEntity
 
     public void Move(float scale)
     {
+        
         playerMovement.Move(scale);
     }
 
@@ -64,6 +65,7 @@ public class Player : MonoBehaviour, IEntity
     void Start()
     {
         LevelController.Instance.AddEntityToList(this, EntityDimension.PLAYER);
+        health += LevelDataHandler.additionalLife;
     }
 
     // Update is called once per frame
@@ -83,7 +85,7 @@ public class Player : MonoBehaviour, IEntity
 
         if (health <= 0)
         {
-            LevelController.Instance.SetLevelActive(false); 
+            LevelController.Instance.OnGameOver(); 
             //Destroy(this.GameObject());
             //here game over
         }

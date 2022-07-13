@@ -16,7 +16,7 @@ public class Enemy : MonoBehaviour, IEntity
     public GameObject sprite;
     public RotateSprite rotateSprite;
 
-    public int points = 1;
+    private int pointValueForDestruction = 20;
     
     void OnEnable()
     {
@@ -97,8 +97,8 @@ public class Enemy : MonoBehaviour, IEntity
         if (health <= 0)
         {
             Destroy(this.GameObject());
-            // ist nicht in OnDestroy() weil man sonst bei Player-Damage Punkte bekommen würde
-            LevelController.Instance.AddPoints(points);
+            // ist nicht in OnDestroy() weil man sonst bei Player-Damage Punkte bekommen wï¿½rde
+            LevelController.Instance.AddPoints(pointValueForDestruction);
             // ist nicht in OnDestory() weil es sonst fehler wirft
             EffectsManager.instance.SpawnEffect(EffectsManager.instance.EnemyDeathEffect, this.transform.position, 8f);
         }

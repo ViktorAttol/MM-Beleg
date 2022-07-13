@@ -11,24 +11,19 @@ public class PlayerMovement : MonoBehaviour
 
     Vector2 mousePos;
 
+    void Start()
+    {
+        moveSpeed += 150 * LevelDataHandler.additionalSpeed;
+    }
+    
     void Update()
-    {/*
-        if (this.GetComponent<PlayerHealth>().IsDead())
-        {
-            return;
-        }
-*/
+    {
         mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
     }
 
     public void Move(float speed)
     {
-        /*      if (this.GetComponent<PlayerHealth>().IsDead())
-              {
-                  rb.drag = 999999;
-                  return;
-              }
-      */
+       
 
         float tempSpeed = moveSpeed * speed;
 
