@@ -26,6 +26,7 @@ public class LevelController : MonoBehaviour
     public void AddPoints(int points)
     {
         this.points += points;
+        LevelDataHandler.currentPlayerPoints += points;
     }
     
     private void OnEnable()
@@ -106,10 +107,22 @@ public class LevelController : MonoBehaviour
             bufferDimensionList.AddRange(entities[i]);
             foreach(IEntity entity in bufferDimensionList)
             {
-                entity.Move(moveValue );
+                entity.Move(moveValue);
             }
             bufferDimensionList.Clear();
         }
         enemySpawnManager.SpawnTick(Time.fixedDeltaTime);
+    }
+
+    public void KillAllEntities()
+    {
+        foreach (LinkedList<IEntity> entityList in entities)
+        {
+            foreach (IEntity entity in entityList)
+            {
+                if (entity is Player) continue;
+                GameObject.Destroy(((MonoBehaviour)entity).gameObject);
+            }
+        }
     }
 }

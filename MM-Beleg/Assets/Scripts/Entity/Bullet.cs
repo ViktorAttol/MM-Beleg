@@ -29,6 +29,8 @@ public class Bullet : MonoBehaviour, IEntity
             if (other.GetComponent<Enemy>() != null || other.GetComponent<Player>() != null)
             {
                 target.TakeDamage(bulletDamage);
+                // Effect in OnDestroy wirf Fehler
+                EffectsManager.instance.SpawnEffect(EffectsManager.instance.BulletHitEffect, this.transform.position, 8f);
                 Destroy(this.GameObject());
             }
             // hit other bullets code here
@@ -40,7 +42,7 @@ public class Bullet : MonoBehaviour, IEntity
         return dimension;
     }
 
-    public float GetHealth()
+    public int GetHealth()
     {
         throw new System.NotImplementedException();
     }
@@ -73,7 +75,7 @@ public class Bullet : MonoBehaviour, IEntity
 
     public void TakeDamage(int damage)
     {
-        throw new NotImplementedException();
+        throw new System.NotImplementedException();
     }
 
     public void SetTargetDimension(EntityDimension target)

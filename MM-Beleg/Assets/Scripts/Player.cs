@@ -35,9 +35,9 @@ public class Player : MonoBehaviour, IEntity
         return playerDimension;
     }
 
-    public float GetHealth()
+    public int GetHealth()
     {
-        throw new System.NotImplementedException();
+        return health;
     }
 
     public float GetMoveSpeed()
@@ -75,6 +75,12 @@ public class Player : MonoBehaviour, IEntity
     public void TakeDamage(int damage)
     {
         health -= damage;
+
+        SFXPlayer.instance.PlaySoundEffect(SFXPlayer.instance.SoundEffectDamage, this.transform.position);
+        EffectsManager.instance.SpawnEffect(EffectsManager.instance.PlayerDamageEffect, this.transform.position, 8f);
+        EffectsManager.instance.RippleEffect(1f);
+        LevelController.Instance.KillAllEntities();
+
         if (health <= 0)
         {
             LevelController.Instance.SetLevelActive(false); 

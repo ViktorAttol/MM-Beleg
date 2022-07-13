@@ -5,7 +5,7 @@ using UnityEngine;
 public interface IEntity
 {
     public GameObject GetDeathEffect();
-    public float GetHealth();
+    public int GetHealth();
     public EntityDimension GetDimension();
     public void SetDimenion(EntityDimension dimension);
     public float GetMoveSpeed();
