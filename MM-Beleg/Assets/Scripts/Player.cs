@@ -3,11 +3,27 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+public enum Weapon
+{
+    Rifle, Shotgun, Minigun
+}
+
 public class Player : MonoBehaviour, IEntity
 {
     private EntityDimension playerDimension = EntityDimension.PLAYER;
     public PlayerMovement playerMovement;
-    private int health = 20;
+    private int health = 3;
+    private Weapon weapon;
+
+    public Weapon GetCurrentWeapon()
+    {
+        return this.weapon;
+    }
+
+    public void SetCurrentWeapon(Weapon weapon)
+    {
+        this.weapon = weapon;
+    }
     
     public GameObject GetDeathEffect()
     {

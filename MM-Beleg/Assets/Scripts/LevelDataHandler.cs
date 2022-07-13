@@ -9,6 +9,11 @@ public static class LevelDataHandler
 
     public static List<string> unlockedWeapons;
     public static int lifePoints;
+    
+    public static int currentPlayerPoints = 0;
+    
+    public static bool shotgun = false;
+    public static bool minigun = false;
     //public static 
 }
 

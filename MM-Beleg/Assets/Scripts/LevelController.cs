@@ -15,6 +15,18 @@ public class LevelController : MonoBehaviour
     private float moveValueNotCurrentDimension = 0.5f;
     private bool levelActive = true;
     private EnemySpawnManager enemySpawnManager;
+
+    private int points = 0;
+
+    public int GetPoints()
+    {
+        return points;
+    }
+
+    public void AddPoints(int points)
+    {
+        this.points += points;
+    }
     
     private void OnEnable()
     {
