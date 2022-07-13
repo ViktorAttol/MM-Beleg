@@ -7,6 +7,8 @@ public class DimensionController : MonoBehaviour
 {
     public static DimensionController Instance;
     private EntityDimension currentDimension = EntityDimension.RED;
+
+    private Transform player;
     
     // Start is called before the first frame update
     void Start()
@@ -16,6 +18,8 @@ public class DimensionController : MonoBehaviour
             Destroy(Instance);
         }
         Instance = this;
+
+        player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     // Update is called once per frame
@@ -38,6 +42,8 @@ public class DimensionController : MonoBehaviour
     void SetDimension(EntityDimension dimension)
     {
         currentDimension = dimension;
+        EffectsManager.instance.RippleEffect(0.3f);
+        SFXPlayer.instance.PlaySoundEffect(SFXPlayer.instance.SoundEffectSwapDimension, player.position);
     }
 
     public EntityDimension GetCurrentDimension()

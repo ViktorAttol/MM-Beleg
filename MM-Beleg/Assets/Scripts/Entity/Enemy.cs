@@ -15,12 +15,13 @@ public class Enemy : MonoBehaviour, IEntity
     private EnemyAttack enemyAttack;
     public GameObject sprite;
     public RotateSprite rotateSprite;
+
+    public int points = 1;
     
     void OnEnable()
     {
         enemyAttack = GetComponent<EnemyAttack>();
         rotateSprite = sprite.GetComponent<RotateSprite>();
-
     }
 
     void Start()
@@ -30,7 +31,7 @@ public class Enemy : MonoBehaviour, IEntity
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private void OnDestroy()
@@ -48,7 +49,7 @@ public class Enemy : MonoBehaviour, IEntity
         return dimension;
     }
 
-    public float GetHealth()
+    public int GetHealth()
     {
         return health;
     }
@@ -56,6 +57,16 @@ public class Enemy : MonoBehaviour, IEntity
     public float GetMoveSpeed()
     {
         return moveSpeed;
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.GetComponent<IEntity>() == null) return;
+        IEntity target = other.GetComponent<IEntity>();
+        if (target.GetDimension() == EntityDimension.PLAYER)
+        {
+            target.TakeDamage(1);
+        }
     }
 
     public void Move(float scale)
@@ -86,6 +97,10 @@ public class Enemy : MonoBehaviour, IEntity
         if (health <= 0)
         {
             Destroy(this.GameObject());
+            // ist nicht in OnDestroy() weil man sonst bei Player-Damage Punkte bekommen würde
+            LevelController.Instance.AddPoints(points);
+            // ist nicht in OnDestory() weil es sonst fehler wirft
+            EffectsManager.instance.SpawnEffect(EffectsManager.instance.EnemyDeathEffect, this.transform.position, 8f);
         }
     }
 

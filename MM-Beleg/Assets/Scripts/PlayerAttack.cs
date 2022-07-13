@@ -30,6 +30,8 @@ public class PlayerAttack : MonoBehaviour
             activeBullet.SetDimenion(DimensionController.Instance.GetCurrentDimension());
             activeBullet.SetTargetDimension(DimensionController.Instance.GetCurrentDimension());
             LevelController.Instance.AddEntityToList(activeBullet, activeBullet.GetDimension());
+
+            SFXPlayer.instance.PlaySoundEffect(SFXPlayer.instance.SoundEffectShoot, firePoint.transform.position);
         }
     }
 }
