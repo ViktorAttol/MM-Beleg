@@ -2,17 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Handles audio analysis of music to use with camera shake effect. 
+/// </summary>
 public class AudioAnalyzer : MonoBehaviour
 {
     public AudioSource audioSource;
     public float updateStep = 0.1f;
     public int sampleDataLength = 1024;
-
     private float currentUpdateTime = 0f;
-
     private float clipLoudness;
     private float[] clipSampleData;
-
     private float fMax;
 
     void Awake()
@@ -50,12 +50,16 @@ public class AudioAnalyzer : MonoBehaviour
         return clipLoudness;
     }
 
+    /// <summary>
+    /// Calculates volume of given frequency range for syncing to camera shake effect. 
+    /// </summary>
+    /// <param name="fLow"> Low frequency of band. </param>
+    /// <param name="fHigh"> High frequency of band. </param>
+    /// <returns> Average volume of given band. </returns>
     public float BandVol(float fLow, float fHigh)
     {
-
         fLow = Mathf.Clamp(fLow, 20, fMax);
         fHigh = Mathf.Clamp(fHigh, fLow, fMax); 
-
 
         int n1 = (int)Mathf.Floor(fLow * sampleDataLength / fMax);
         int n2 = (int)Mathf.Floor(fHigh * sampleDataLength / fMax);

@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Handles game music. 
+/// </summary>
 public class MusicPlayer : MonoBehaviour
 {
     public AudioClip[] clips;
     private AudioSource audioSource;
-
     public float volume;
-
     // Singleton
     private static MusicPlayer instance;
 

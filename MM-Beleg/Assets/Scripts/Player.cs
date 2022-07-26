@@ -8,6 +8,9 @@ public enum Weapon
     Rifle, Shotgun, Minigun
 }
 
+/// <summary>
+/// Controllable Player Entity. 
+/// </summary>
 public class Player : MonoBehaviour, IEntity
 {
     private EntityDimension playerDimension = EntityDimension.PLAYER;
@@ -15,65 +18,35 @@ public class Player : MonoBehaviour, IEntity
     private int health = 3;
     private Weapon weapon;
 
-    public Weapon GetCurrentWeapon()
-    {
-        return this.weapon;
-    }
-
-    public void SetCurrentWeapon(Weapon weapon)
-    {
-        this.weapon = weapon;
-    }
-    
-    public GameObject GetDeathEffect()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public EntityDimension GetDimension()
-    {
-        return playerDimension;
-    }
-
-    public int GetHealth()
-    {
-        return health;
-    }
-
-    public float GetMoveSpeed()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public void Move(float scale)
-    {
-        
-        playerMovement.Move(scale);
-    }
-
-    public void SetDimenion(EntityDimension dimension)
-    {
-       //activeDimension = dimension;
-    }
-
-    public void SetTarget(Transform _target)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    // Start is called before the first frame update
+    /// <summary>
+    /// Adds Player to game level.
+    /// Increases health value by additionalLife purchased in shop.
+    /// </summary>
     void Start()
     {
         LevelController.Instance.AddEntityToList(this, EntityDimension.PLAYER);
         health += LevelDataHandler.additionalLife;
     }
 
-    // Update is called once per frame
-    void Update()
+    /// <inheritdoc />
+    public int GetHealth()
     {
-        
+        return health;
     }
-    
+
+    /// <inheritdoc />
+    public EntityDimension GetDimension()
+    {
+        return playerDimension;
+    }
+
+    /// <inheritdoc />
+    public void Move(float scale)
+    {
+        playerMovement.Move(scale);
+    }
+
+    /// <inheritdoc />
     public void TakeDamage(int damage)
     {
         health -= damage;
@@ -85,9 +58,32 @@ public class Player : MonoBehaviour, IEntity
 
         if (health <= 0)
         {
-            LevelController.Instance.OnGameOver(); 
-            //Destroy(this.GameObject());
-            //here game over
+            LevelController.Instance.OnGameOver();
         }
+    }
+
+    public Weapon GetCurrentWeapon()
+    {
+        return this.weapon;
+    }
+
+    public void SetCurrentWeapon(Weapon weapon)
+    {
+        this.weapon = weapon;
+    }
+
+    public void SetDimenion(EntityDimension dimension)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public float GetMoveSpeed()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void SetTarget(Transform _target)
+    {
+        throw new System.NotImplementedException();
     }
 }

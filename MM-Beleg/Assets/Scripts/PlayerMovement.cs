@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Handles movement functionality of Player Entity. 
+/// </summary>
 public class PlayerMovement : MonoBehaviour
 {
     private float moveSpeed = 600f;
-
     public Rigidbody2D rb;
     public Camera cam;
-
     Vector2 mousePos;
 
     void Start()
@@ -21,10 +22,14 @@ public class PlayerMovement : MonoBehaviour
         mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
     }
 
+    /// <summary>
+    /// Moves Player Entity base on keyboard input. 
+    /// Sets LookDirection based on mouse position.
+    /// Movement speed can be increased through purchased upgrades.
+    /// </summary>
+    /// <param name="speed"> Scaling multiplier for movement speed. </param>
     public void Move(float speed)
     {
-       
-
         float tempSpeed = moveSpeed * speed;
 
         if (Input.GetAxisRaw("Horizontal") > 0.01f)

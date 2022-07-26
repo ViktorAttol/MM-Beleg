@@ -4,6 +4,10 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+/// <summary>
+/// Entity instantiated on shoot method of Player or Enemy. 
+/// Causes Entities that collide with it to take damage.
+/// </summary>
 public class Bullet : MonoBehaviour, IEntity
 {
     EntityDimension dimension;
@@ -13,12 +17,6 @@ public class Bullet : MonoBehaviour, IEntity
     private float bulletSpeed = 800f;
     private Rigidbody2D thisBody;
     private float lifeDistance = 100f;
-    
-    public GameObject GetDeathEffect()
-    {
-        throw new System.NotImplementedException();
-    }
-
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -33,50 +31,29 @@ public class Bullet : MonoBehaviour, IEntity
                 EffectsManager.instance.SpawnEffect(EffectsManager.instance.BulletHitEffect, this.transform.position, 8f);
                 Destroy(this.GameObject());
             }
-            // hit other bullets code here
         }
     }
 
+    /// <inheritdoc />
     public EntityDimension GetDimension()
     {
         return dimension;
     }
 
-    public int GetHealth()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public float GetMoveSpeed()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public void Move(float scale)
-    {
-        //transform.position += transform.right * _speed * bulletSpeed * Time.deltaTime;
-        //thisBody.AddForce(transform.up * _speed * bulletSpeed, ForceMode2D.Impulse);
-        thisBody.velocity = ((transform.right).normalized) * scale * bulletSpeed  ;
-        lifeDistance -= scale;
-        if(lifeDistance <= 0) Destroy(this.GameObject());
-    }
-
+    /// <inheritdoc />
     public void SetDimenion(EntityDimension dimension)
     {
         this.dimension = dimension;
-        GetComponent<SpriteRenderer>().color = DimensionColors.dimensionColors[(int) dimension];
-    }
-    
-
-    public void SetTarget(Transform _target)
-    {
-        throw new System.NotImplementedException();
+        GetComponent<SpriteRenderer>().color = DimensionColors.dimensionColors[(int)dimension];
     }
 
-    public void TakeDamage(int damage)
+    /// <inheritdoc />
+    public void Move(float scale)
     {
-        throw new System.NotImplementedException();
-    }
+        thisBody.velocity = ((transform.right).normalized) * scale * bulletSpeed  ;
+        lifeDistance -= scale;
+        if(lifeDistance <= 0) Destroy(this.GameObject());
+    } 
 
     public void SetTargetDimension(EntityDimension target)
     {
@@ -93,15 +70,28 @@ public class Bullet : MonoBehaviour, IEntity
         LevelController.Instance.RemoveEntityFromList(this);
     }
     
-    // Start is called before the first frame update
     void Start()
     {
         thisBody = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public int GetHealth()
     {
-        
+        throw new System.NotImplementedException();
+    }
+
+    public float GetMoveSpeed()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void SetTarget(Transform _target)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void TakeDamage(int damage)
+    {
+        throw new System.NotImplementedException();
     }
 }

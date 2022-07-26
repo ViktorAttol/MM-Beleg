@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+/// <summary>
+/// Handles shooting funtionality of Enemy Entity.
+/// </summary>
 public class EnemyAttack : MonoBehaviour
 {
     public GameObject bulletPrefab;
@@ -10,16 +13,17 @@ public class EnemyAttack : MonoBehaviour
     private float fireRate = 1f;
     private float nextShoot = 0f;
     private Enemy enemy;
+   
     void Start()
     {
         enemy = GetComponent<Enemy>();
     }
 
-    void Update()
-    {
-      
-    }
-
+    /// <summary>
+    /// Instantiates a bullet with EntityDimension of this Entity.
+    /// FireRate reduced when this EntityDimension is inactive.
+    /// </summary>
+    /// <param name="_scale"> Scaling multiplier for fireRate. </param>
     public void Shoot(float _scale)
     {
         nextShoot += _scale;
@@ -27,10 +31,8 @@ public class EnemyAttack : MonoBehaviour
         {
             nextShoot = 0f;
             GameObject bullet = GameObject.Instantiate(bulletPrefab);
-            //bullet.transform.parent = transform;
             bullet.transform.position = firePoint.transform.position;
             bullet.transform.rotation = firePoint.transform.rotation;
-            //bullet.GetComponent<Rigidbody2D>().AddForce(firePoint.transform.up * 30, ForceMode2D.Impulse);
             Bullet activeBullet = bullet.GetComponent<Bullet>();
             activeBullet.SetDimenion(enemy.GetDimension());
             activeBullet.SetTargetDimension(EntityDimension.PLAYER);
