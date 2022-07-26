@@ -6,17 +6,17 @@ using TMPro;
 using System;
 using System.Linq;
 
+/// <summary>
+/// Handles display and mutation of HUD elements. 
+/// </summary>
 public class HUDController : MonoBehaviour
 {
-
     public Player player;
-
     private int numOfHearts;
     private float startTime = 0;
     public Image[] hearts;
     public Sprite fullHeart;
     public Sprite emptyHeart;
-
     public Camera CurrentCamera;
 
     public TextMeshProUGUI score;
@@ -34,7 +34,6 @@ public class HUDController : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         DrawHealthBar();

@@ -5,9 +5,12 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Manages entity creation, movement, destruction in level, 
+/// and keeps track of points collected by player for current run.
+/// </summary>
 public class LevelController : MonoBehaviour
 {
-    // public EnemySpawnManager enemySpawnManager;
     public LinkedList<IEntity>[] entities;
     public LinkedList<IEntity> bufferDimensionList;
     public static LevelController Instance;
@@ -15,19 +18,7 @@ public class LevelController : MonoBehaviour
     private float moveValueNotCurrentDimension = 0.5f;
     private bool levelActive = true;
     private EnemySpawnManager enemySpawnManager;
-
     private int points = 0;
-
-    public int GetPoints()
-    {
-        return points;
-    }
-
-    public void AddPoints(int points)
-    {
-        this.points += points;
-        //LevelDataHandler.currentPlayerPoints += points;
-    }
     
     private void OnEnable()
     {
@@ -43,23 +34,32 @@ public class LevelController : MonoBehaviour
         Instance = this;
     }
 
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
-
+    /// <summary>
+    /// Sets level as inactive, pays out collected points to player for use in shop,
+    /// Returns to main menu.
+    /// </summary>
     public void OnGameOver()
     {
         levelActive = false;
         LevelDataHandler.AddPlayerPoints(points);
         ReturnToMenu();
     }
-    
+
+    public int GetPoints()
+    {
+        return points;
+    }
+
+    /// <summary>
+    /// Increases collected point value.
+    /// Called when Enemy defeated. 
+    /// </summary>
+    /// <param name="points"> value of points to add to total collected. </param>
+    public void AddPoints(int points)
+    {
+        this.points += points;
+    }
+
     public void SetEnemySpawnManager(EnemySpawnManager spawnManager)
     {
         enemySpawnManager = spawnManager;
@@ -75,11 +75,19 @@ public class LevelController : MonoBehaviour
         if(levelActive) GameTick();
     }
 
+    /// <summary>
+    /// Loads the Main Menu scene.
+    /// </summary>
     public void ReturnToMenu()
     {
         SceneManager.LoadScene("MainMenu");
     }
 
+    /// <summary>
+    /// Adds given Entity to list of entities, sorted by dimension.
+    /// </summary>
+    /// <param name="_entity"> Entity to be added to the level. </param>
+    /// <param name="dimension"> Dimension to which the above entity belongs. </param>
     public void AddEntityToList(IEntity _entity, EntityDimension dimension)
     {
         if (_entity == null)
@@ -90,10 +98,15 @@ public class LevelController : MonoBehaviour
         entities[(int) dimension].AddLast(_entity);
     }
 
+    /// <summary>
+    /// Removes the given Entity from the list of entities. 
+    /// </summary>
+    /// <param name="_entity"> Entity to be removed. </param>
     public void RemoveEntityFromList(IEntity _entity)
     {
         entities[(int)_entity.GetDimension()].Remove(_entity);
     }
+
     private void InitDimensions()
     {
         entities = new LinkedList<IEntity>[System.Enum.GetValues(typeof(EntityDimension)).Length];
@@ -121,6 +134,9 @@ public class LevelController : MonoBehaviour
         enemySpawnManager.SpawnTick(Time.fixedDeltaTime);
     }
 
+    /// <summary>
+    /// Destroys all active GameOjects of non-Player Entity type. 
+    /// </summary>
     public void KillAllEntities()
     {
         foreach (LinkedList<IEntity> entityList in entities)

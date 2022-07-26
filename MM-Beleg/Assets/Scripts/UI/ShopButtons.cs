@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// Handles purchasing of items in the shop and related UI elements. 
+/// </summary>
 public class ShopButtons : MonoBehaviour
 {
     private int costShotgun = 500;
@@ -23,6 +26,10 @@ public class ShopButtons : MonoBehaviour
         speedStatus.text = LevelDataHandler.additionalSpeed + "/3";
     }
     
+    /// <summary>
+    /// Deducts cost of Shotgun from Points available. 
+    /// Unlocks Shotgun use in game.
+    /// </summary>
     public void OnBuyShotgunBtnCLicked()
     {
         if (LevelDataHandler.unlockedShotgun) return;
@@ -32,7 +39,11 @@ public class ShopButtons : MonoBehaviour
             shotgunStatus.text = "UNLOCKED";
         }
     }
-    
+
+    /// <summary>
+    /// Deducts cost of Minigun from Points available. 
+    /// Unlocks Minigun use in game.
+    /// </summary>
     public void OnBuyMinigunBtnCLicked()
     {
         if (LevelDataHandler.unlockedMinigun) return;
@@ -42,7 +53,11 @@ public class ShopButtons : MonoBehaviour
             minigunStatus.text = "UNLOCKED";
         }
     }
-    
+
+    /// <summary>
+    /// Deducts cost of Health from Points available. 
+    /// Increases Player Health.
+    /// </summary>
     public void OnBuyHealthBtnCLicked()
     {
         if (LevelDataHandler.additionalLife >= 3) return;
@@ -52,7 +67,11 @@ public class ShopButtons : MonoBehaviour
             healthStatus.text = LevelDataHandler.additionalLife + "/3";
         }
     }
-    
+
+    /// <summary>
+    /// Deducts cost of Spped from Points available. 
+    /// Increases Player Speed.
+    /// </summary>
     public void OnBuySpeedBtnCLicked()
     {
         if (LevelDataHandler.additionalSpeed >= 3) return;

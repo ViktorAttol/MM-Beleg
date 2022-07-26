@@ -4,14 +4,15 @@ using UnityEngine;
 using Cinemachine;
 using UnityEngine.Events;
 
+/// <summary>
+/// Handles camera shake effect. 
+/// </summary>
 public class CameraShaker : MonoBehaviour
 {
     public AudioAnalyzer audioAnalyzer;
-
     public float ShakeDuration = 0.2f;    
     public float ShakeAmplitude = 3f;     
     public float ShakeFrequency = 100f;  
-
     private float ShakeElapsedTime = 0f;
 
     // Cinemachine Shake
@@ -46,7 +47,6 @@ public class CameraShaker : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         UpdateShake();

@@ -9,6 +9,9 @@ public enum MenuState
     MAIN, SHOP, EXIT 
 }
 
+/// <summary>
+/// Handles Menu views.
+/// </summary>
 public class MainMenuStateMachine : MonoBehaviour
 {
     private MenuState _menuState = MenuState.MAIN;
@@ -52,22 +55,22 @@ public class MainMenuStateMachine : MonoBehaviour
         _activeView.SetActive(true);
     }
 
+    /// <summary>
+    /// Loads Level scene. 
+    /// </summary>
     public void PlayBtnClicked()
     {
-        //Debug.Log("play");
         SceneManager.LoadScene("Level", LoadSceneMode.Single);
     }
 
     public void ShopBtnClicked()
     {
-        //Debug.Log("shop");
         _menuState = MenuState.SHOP;
         SetMenuView();
     }
 
     public void ExitBtnClicked()
     {
-        //Debug.Log("exit");
         _menuState = MenuState.EXIT;
         SetMenuView();
     }

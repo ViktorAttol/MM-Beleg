@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+/// <summary>
+/// Displays Player Points as currency available for use in shop.
+/// </summary>
 public class ShopMoney : MonoBehaviour
 {
     private TextMeshProUGUI money;
@@ -11,8 +14,7 @@ public class ShopMoney : MonoBehaviour
     {
         money = GetComponent<TextMeshProUGUI>();
     }
-    
-    // Update is called once per frame
+
     void Update()
     {
         money.text = "$ " + LevelDataHandler.GetCurrentPlayerPoints();

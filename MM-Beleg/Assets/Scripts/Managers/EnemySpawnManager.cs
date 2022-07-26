@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Instantiates Enemy Entities.
+/// </summary>
 public class EnemySpawnManager : MonoBehaviour
 {
     [SerializeField] private LevelController levelController;
@@ -21,6 +24,11 @@ public class EnemySpawnManager : MonoBehaviour
         SetDimensions();
     }
 
+    /// <summary>
+    /// Calls Spawn with the rate of timePassed. 
+    /// Enemies will be instantiated at increasing rates the longer the level is active.
+    /// </summary>
+    /// <param name="tickTime"> Time value. </param>
     public void SpawnTick(float tickTime)
     {
         spawnTimeCounter += tickTime;
