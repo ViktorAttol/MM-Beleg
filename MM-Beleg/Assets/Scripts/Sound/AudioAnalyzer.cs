@@ -23,6 +23,7 @@ public class AudioAnalyzer : MonoBehaviour
             Debug.LogError(GetType() + ".Awake: there was no audioSource set.");
         }
         clipSampleData = new float[sampleDataLength];
+        // max. frequency the audio can have
         fMax = AudioSettings.outputSampleRate / 2;
 
     }
@@ -58,7 +59,9 @@ public class AudioAnalyzer : MonoBehaviour
     /// <returns> Average volume of given band. </returns>
     public float BandVol(float fLow, float fHigh)
     {
+        // Limits lower band, because anything under 20Hz is not audible for most humans
         fLow = Mathf.Clamp(fLow, 20, fMax);
+        // Use clamp again with 20Hz as Minimum and Samplerate / 2 as Maximum (processing more data is not needed)
         fHigh = Mathf.Clamp(fHigh, fLow, fMax); 
 
         int n1 = (int)Mathf.Floor(fLow * sampleDataLength / fMax);
